@@ -13,20 +13,27 @@ public class Position {
         this.y = y;
     }
 
+    public float getX() {
+        return x;
+    }
+
     public void setX(float x) {
         this.x = x;
+    }
+
+    public float getY() {
+        return y;
     }
 
     public void setY(float y) {
         this.y = y;
     }
 
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
+    public boolean equals(Position position) {
+        if (this.x == position.getX() && this.y == position.getY())
+            return true;
+        else
+            return false;
     }
 
     public String toString() {

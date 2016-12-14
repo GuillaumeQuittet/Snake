@@ -45,18 +45,18 @@ public class GamePad {
         if (y >= rectPad.getY() && y <= rectPad.getY() + rectPad.getHeight()) {
             if (x >= arrowUp.getPosition().getX() && x <= arrowUp.getPosition().getX() + arrowUp.getSize()) {
                 if (y >= arrowUp.getPosition().getY() && y <= arrowUp.getPosition().getY() + arrowUp.getSize()) {
-                    if(snake.getDirection() != 1)
+                    if (snake.getMoveDirection() != 1)
                         snake.setDirection(3);
                 } else if (y >= arrowDown.getPosition().getY() && y <= arrowDown.getPosition().getY() + arrowDown.getSize()) {
-                    if(snake.getDirection() != 3)
+                    if (snake.getMoveDirection() != 3)
                         snake.setDirection(1);
                 }
             } else if (y >= arrowLeft.getPosition().getY() && y <= arrowLeft.getPosition().getY() + arrowLeft.getSize()) {
                 if (x >= arrowLeft.getPosition().getX() && x <= arrowLeft.getPosition().getX() + arrowLeft.getSize()) {
-                    if(snake.getDirection() != 0)
+                    if (snake.getMoveDirection() != 0)
                         snake.setDirection(2);
                 } else if (x >= arrowRight.getPosition().getX() && x <= arrowRight.getPosition().getX() + arrowRight.getSize()) {
-                    if(snake.getDirection() != 2)
+                    if (snake.getMoveDirection() != 2)
                         snake.setDirection(0);
                 }
             }

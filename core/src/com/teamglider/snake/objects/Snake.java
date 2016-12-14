@@ -44,25 +44,7 @@ public class Snake {
     }
 
     public void eatCandy(Candy candy) {
-        int direction;
-        float x1 = positions[length - 1].getX();
-        float x2 = positions[length - 2].getX();
-        float deltaX = x2 - x1;
-        float y1 = positions[length - 1].getY();
-        float y2 = positions[length - 2].getY();
-        float deltaY = y2 - y1;
-        if (deltaX == 0) {
-            if (deltaY > 0)
-                direction = 1;
-            else
-                direction = 3;
-        } else {
-            if (deltaX > 0)
-                direction = 0;
-            else
-                direction = 2;
-        }
-        switch (direction) {
+        switch (getMoveDirection()) {
             case 0:
                 addPosition(new Position(positions[length - 1].getX() - size, positions[length - 1].getY()));
                 break;
@@ -76,6 +58,28 @@ public class Snake {
                 addPosition(new Position(positions[length - 1].getX(), positions[length - 1].getY() + size));
                 break;
         }
+    }
+
+    public int getMoveDirection() {
+        int direction;
+        float x1 = positions[length - 1].getX();
+        float x2 = positions[length - 2].getX();
+        float deltaX = x2 - x1;
+        float y1 = positions[length - 1].getY();
+        float y2 = positions[length - 2].getY();
+        float deltaY = y2 - y1;
+        if (deltaX == 0) {
+            if (deltaY > 0)
+                direction = 1;
+            else
+                direction = 3;
+        } else {
+            if (deltaX < 0)
+                direction = 0;
+            else
+                direction = 2;
+        }
+        return direction;
     }
 
     public int getSize() {

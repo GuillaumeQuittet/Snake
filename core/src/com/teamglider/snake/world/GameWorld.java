@@ -45,7 +45,7 @@ public class GameWorld {
         updateCount++;
         if (updateCount == 10) {
             snake.update(delta);
-            if (snake.getHead().getX() == candy.getPosition().getX() && snake.getHead().getY() == candy.getPosition().getY()) {
+            if (candy.getPosition().equals(snake.getHead())) {
                 snake.eatCandy(candy);
                 generateCandy();
             }
@@ -57,7 +57,7 @@ public class GameWorld {
     }
 
     private boolean snakeIsDead() {
-        for (int i = 1; i < snake.getLength(); ++i) {
+        for (int i = 3; i < snake.getLength(); ++i) {
             if (snake.getPositions()[i].getX() == snake.getHead().getX() && snake.getPositions()[i].getY() == snake.getHead().getY()) {
                 return true;
             }
