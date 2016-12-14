@@ -29,10 +29,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if(gameWorld.update(delta) == 1) {
-            dispose();
-            Gdx.app.exit();
-        }
+        gameWorld.update(delta);
         gameRenderer.render();
     }
 

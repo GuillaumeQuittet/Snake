@@ -40,7 +40,7 @@ public class GameWorld {
         candy = new Candy(objectSize, candyPosition);
     }
 
-    public int update(float delta) {
+    public void update(float delta) {
         //Gdx.app.log("GameWorld", "Update");
         updateCount++;
         if (updateCount == snake.getSpeed()) {
@@ -55,11 +55,11 @@ public class GameWorld {
                 snake.setSpeed(5);
             else if (snake.getLength() > 30)
                 snake.setSpeed(3);
-            if (snakeIsDead())
-                return 1;
+            if (snakeIsDead()) {
+                snake.setPositions(new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)}, 3);
+            }
             updateCount = 0;
         }
-        return 0;
     }
 
     private boolean snakeIsDead() {

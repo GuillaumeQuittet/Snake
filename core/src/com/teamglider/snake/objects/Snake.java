@@ -108,4 +108,19 @@ public class Snake {
     public Position getHead() {
         return positions[0];
     }
+
+    private void emptyPositions() {
+        direction = 2;
+        for (int i = 0; i < length; ++i) {
+            positions[i] = null;
+            length = 0;
+        }
+    }
+
+    public void setPositions(Position[] positions, int length) {
+        emptyPositions();
+        for (int i = 0; i < length; ++i) {
+            addPosition(positions[i]);
+        }
+    }
 }
