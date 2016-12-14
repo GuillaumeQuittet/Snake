@@ -57,6 +57,7 @@ public class GameWorld {
                 snake.setSpeed(3);
             if (snakeIsDead()) {
                 snake.setPositions(new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)}, 3);
+                snake.setSpeed(10);
             }
             updateCount = 0;
         }
