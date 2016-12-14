@@ -2,6 +2,7 @@ package com.teamglider.snake.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -16,6 +17,8 @@ public class AssetLoader {
     public static TextureRegion actionButtonB;
     public static TextureRegion actionButtonMenu;
 
+    public static BitmapFont font, shadow;
+
     /**
      * Load the assets
      */
@@ -24,13 +27,17 @@ public class AssetLoader {
         texture = new Texture(Gdx.files.internal("Images-Pack/textures.png"));
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         arrowKey = new TextureRegion(texture, 1, 1, 128, 128);
-        actionButtonA = new TextureRegion(texture, 131, 1, 128, 128);
-        actionButtonB = new TextureRegion(texture, 261, 1, 128, 128);
-        actionButtonMenu = new TextureRegion(texture, 391, 1, 128, 128);
         arrowKey.flip(false, true);
+        actionButtonA = new TextureRegion(texture, 131, 1, 128, 128);
         actionButtonA.flip(false, true);
+        actionButtonB = new TextureRegion(texture, 261, 1, 128, 128);
         actionButtonB.flip(false, true);
+        actionButtonMenu = new TextureRegion(texture, 391, 1, 128, 128);
         actionButtonMenu.flip(false, true);
+        font = new BitmapFont(Gdx.files.internal("Fonts/text.fnt"));
+        font.getData().setScale(0.25f, -0.25f);
+        shadow = new BitmapFont(Gdx.files.internal("Fonts/shadow.fnt"));
+        shadow.getData().setScale(0.25f, -0.25f);
     }
 
     /**
@@ -39,6 +46,8 @@ public class AssetLoader {
     public static void dispose() {
         Gdx.app.log("AssetLoader", "Dispose the assets");
         texture.dispose();
+        font.dispose();
+        shadow.dispose();
     }
 
 }

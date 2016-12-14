@@ -70,11 +70,17 @@ public class GameRenderer {
         spriteBatch.setProjectionMatrix(camera.combined);
     }
 
-    private void renderGameScreen() {
+    private void renderGameScreen(String pauseText) {
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(127/255f, 127/255f, 127/255f, 1);
         shapeRenderer.rect(0, 0, 180, 30);
         shapeRenderer.end();
+        spriteBatch.begin();
+        AssetLoader.shadow.draw(spriteBatch, gameWorld.getScore().toString(), 5, 7);
+        AssetLoader.font.draw(spriteBatch, gameWorld.getScore().toString(), 5, 6);
+        AssetLoader.shadow.draw(spriteBatch, pauseText, 120, 7);
+        AssetLoader.font.draw(spriteBatch, pauseText, 120, 6);
+        spriteBatch.end();
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(0, 0, 0, 1);
         shapeRenderer.rect(0, 30, 180, 210);
@@ -164,11 +170,11 @@ public class GameRenderer {
         shapeRenderer.end();
     }
 
-    public void render() {
+    public void render(String pauseText) {
         //Gdx.app.log("GameRenderer", "Render");
         gl.glClearColor(0, 0, 0, 1);
         gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-        renderGameScreen();
+        renderGameScreen(pauseText);
         renderGamePad();
         renderSnake();
         renderCandy();

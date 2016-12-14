@@ -15,10 +15,15 @@ public class GameScreen implements Screen {
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
 
+    private boolean isPause;
+    private String pauseText;
+
     public GameScreen() {
         Gdx.app.log("GameScreen", "Attached");
         gameWorld = new GameWorld();
         gameRenderer = new GameRenderer(gameWorld);
+        isPause = false;
+        pauseText = "";
         Gdx.input.setInputProcessor(new InputHandler(gameWorld.getGamePad(), gameRenderer.getCamera()));
     }
 
@@ -29,8 +34,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        gameWorld.update(delta);
-        gameRenderer.render();
+        if (!isPause) {
+            gameWorld.update(delta);
+        }
+        gameRenderer.render(pauseText);
     }
 
     @Override
@@ -41,11 +48,13 @@ public class GameScreen implements Screen {
     @Override
     public void pause() {
         Gdx.app.log("GameScreen", "Pause");
+        togglePause();
     }
 
     @Override
     public void resume() {
         Gdx.app.log("GameScreen", "Resume");
+        togglePause();
     }
 
     @Override
@@ -57,5 +66,31 @@ public class GameScreen implements Screen {
     public void dispose() {
         Gdx.app.log("GameScreen", "Dispose");
         AssetLoader.dispose();
+    }
+
+    public boolean isPause() {
+        return isPause;
+    }
+
+    public void setPause(boolean pause) {
+        isPause = pause;
+    }
+
+    public String getPauseText() {
+        return pauseText;
+    }
+
+    public void setPauseText(String pauseText) {
+        this.pauseText = pauseText;
+    }
+
+    public void togglePause() {
+        if (isPause) {
+            setPause(false);
+            setPauseText("");
+        } else {
+            setPause(true);
+            setPauseText("Pause");
+        }
     }
 }
