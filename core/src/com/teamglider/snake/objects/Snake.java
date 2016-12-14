@@ -16,11 +16,13 @@ public class Snake {
     private Position[] positions;
     private int length;
     private int speed;
+    private boolean canChangeDirection;
 
     public Snake(int size, int length, int speed, Position[] positions) {
         this.size = size;
         this.speed = speed;
         this.positions = new Position[length];
+        canChangeDirection = true;
         direction = 2;
         this.length = 0;
         for (Position position:positions) {
@@ -43,6 +45,7 @@ public class Snake {
             positions[0] = new Position(positions[1].getX() - size, positions[1].getY());
         else if (direction == 3)
             positions[0] = new Position(positions[1].getX(), positions[1].getY() - size);
+        canChangeDirection = true;
     }
 
     public void eatCandy(Candy candy) {
@@ -75,7 +78,10 @@ public class Snake {
     }
 
     public void setDirection(int direction) {
-        this.direction = direction;
+        if (canChangeDirection) {
+            this.direction = direction;
+            canChangeDirection = false;
+        }
     }
 
     public void addPosition(Position position) {

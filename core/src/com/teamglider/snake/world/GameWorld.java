@@ -49,8 +49,12 @@ public class GameWorld {
                 snake.eatCandy(candy);
                 generateCandy();
             }
-            if (snake.getLength() > 10)
-                snake.setSpeed((int) ((float) ((1.0f / snake.getLength()) * 100)));
+            if (snake.getLength() > 10 && snake.getLength() < 20)
+                snake.setSpeed(7);
+            else if (snake.getLength() > 20 && snake.getLength() < 30)
+                snake.setSpeed(5);
+            else if (snake.getLength() > 30)
+                snake.setSpeed(3);
             if (snakeIsDead())
                 return 1;
             updateCount = 0;
