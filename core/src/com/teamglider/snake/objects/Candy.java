@@ -32,7 +32,7 @@ public class Candy {
 
     /**
      * Set the position of the candy
-     * @param position
+     * @param position The position of the candy
      */
     public void setPosition(Position position) {
         this.position = position;
