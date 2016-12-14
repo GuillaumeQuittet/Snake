@@ -18,6 +18,14 @@ public class Snake {
     private int speed;
     private boolean canChangeDirection;
 
+    /**
+     * The Snake
+     *
+     * @param size      The size of the snake
+     * @param length    The maximum length of the snake
+     * @param speed     The speed of the snake
+     * @param positions The first part of the snake
+     */
     public Snake(int size, int length, int speed, Position[] positions) {
         this.size = size;
         this.speed = speed;
@@ -30,6 +38,10 @@ public class Snake {
         }
     }
 
+    /**
+     * Move forward the snake
+     * @param delta The mother's delta
+     */
     public void update(float delta) {
         Position posTemp;
         for (int i = length - 1; i > 0; i--) {
@@ -48,6 +60,10 @@ public class Snake {
         canChangeDirection = true;
     }
 
+    /**
+     * Eat a candy and increase the length of the snake
+     * @param candy A candy
+     */
     public void eatCandy(Candy candy) {
         switch (direction) {
             case 0:
@@ -65,18 +81,34 @@ public class Snake {
         }
     }
 
+    /**
+     * Return the size of the snake.
+     * @return size The size of one part of the snake
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Return the current length of the snake
+     * @return length The current length of the snake
+     */
     public int getLength() {
         return length;
     }
 
+    /**
+     * Return the current direction that the snake is moving from it(0:right, 1: down, 2:left, 3:up)
+     * @return direction The direction of the snake
+     */
     public int getDirection() {
         return direction;
     }
 
+    /**
+     * Set the snake direction
+     * @param direction The snake direction
+     */
     public void setDirection(int direction) {
         if (canChangeDirection) {
             this.direction = direction;
@@ -84,6 +116,10 @@ public class Snake {
         }
     }
 
+    /**
+     * Add a part of the snake.
+     * @param position A part of the snake
+     */
     public void addPosition(Position position) {
         try {
             positions[length] = position;
@@ -93,22 +129,41 @@ public class Snake {
         }
     }
 
+    /**
+     * Return the current speed of the snake
+     * @return speed The current speed of the snake
+     */
     public int getSpeed() {
         return speed;
     }
 
+    /**
+     * Set the speed of the snake
+     * @param speed The speed of the snake
+     */
     public void setSpeed(int speed) {
         this.speed = speed;
     }
 
+    /**
+     * Return the parts of the snake
+     * @return positions The parts of the snake
+     */
     public Position[] getPositions() {
         return positions;
     }
 
+    /**
+     * Return the head of the snake
+     * @return position[0] The head of the snake and also the first element of the table.
+     */
     public Position getHead() {
         return positions[0];
     }
 
+    /**
+     * Empty the positions tables
+     */
     private void emptyPositions() {
         direction = 2;
         for (int i = 0; i < length; ++i) {
@@ -117,6 +172,11 @@ public class Snake {
         }
     }
 
+    /**
+     * Set a new table that contains new part of the snake inside
+     * @param positions The table of the snake
+     * @param length The length of this table
+     */
     public void setPositions(Position[] positions, int length) {
         emptyPositions();
         for (int i = 0; i < length; ++i) {

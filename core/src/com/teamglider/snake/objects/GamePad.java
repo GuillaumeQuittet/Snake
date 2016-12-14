@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.teamglider.snake.helpers.Position;
 
 /**
+ * The gamepad with the main controls
  * Created by Guillaume Quittet on 12/12/16.
  */
 public class GamePad {
@@ -22,6 +23,13 @@ public class GamePad {
 
     private Snake snake;
 
+    /**
+     * A new gamepad
+     *
+     * @param size     The size of a key
+     * @param position The position of center of the cross
+     * @param snake    The snake
+     */
     public GamePad(float size, Position position, Snake snake) {
         this.size = size;
         this.position = position;
@@ -29,6 +37,9 @@ public class GamePad {
         initActionObjects();
     }
 
+    /**
+     * Initialize the objects of this class.
+     */
     private void initActionObjects() {
         rectPad = new Rectangle(0, 210, 180, 320);
         arrowRight = new ActionKey(1, size, new Position(position.getX() + size, position.getY()));
@@ -40,6 +51,11 @@ public class GamePad {
         actionButtonMenu = new ActionKey(0, size/2.0f, new Position((rectPad.getWidth() - (size/2))/2, 7.5f));
     }
 
+    /**
+     * Add an action of a click
+     * @param x The x position of the touch
+     * @param y The y position of the touch
+     */
     public void onClick(float x, float y) {
         // Cross
         if (y >= rectPad.getY() && y <= rectPad.getY() + rectPad.getHeight()) {
@@ -63,6 +79,10 @@ public class GamePad {
         }
     }
 
+    /**
+     * Add an action with a key press event
+     * @param keycode The code of the key that has been pressed
+     */
     public void onKeyPress(int keycode) {
         switch (keycode) {
             case Input.Keys.LEFT:
@@ -71,6 +91,7 @@ public class GamePad {
                 break;
             case Input.Keys.RIGHT:
                 if (snake.getDirection() != 2)
+
                     snake.setDirection(0);
                 break;
             case Input.Keys.UP:
@@ -84,42 +105,82 @@ public class GamePad {
         }
     }
 
+    /**
+     * Return the key size
+     * @return The key size
+     */
     public float getSize() {
         return size;
     }
 
+    /**
+     * Return the center of the cross
+     * @return The center of the cross
+     */
     public Position getPosition() {
         return position;
     }
 
+    /**
+     * Return the right button of the cross
+     * @return The right button of the cross
+     */
     public ActionKey getArrowRight() {
         return arrowRight;
     }
 
+    /**
+     * Return the down button of the cross
+     * @return The down button of the cross
+     */
     public ActionKey getArrowDown() {
         return arrowDown;
     }
 
+    /**
+     * Return the left button of the cross
+     * @return The left button of the cross
+     */
     public ActionKey getArrowLeft() {
         return arrowLeft;
     }
 
+    /**
+     * Return the up button of the cross
+     * @return The up button of the cross
+     */
     public ActionKey getArrowUp() {
         return arrowUp;
     }
 
+    /**
+     * Return the button A of the gampad
+     * @return The button A of the gamepad
+     */
     public ActionKey getActionButtonA() {
         return actionButtonA;
     }
 
+    /**
+     * Return the button B of the gamepad
+     * @return The button B of the gamepad
+     */
     public ActionKey getActionButtonB() {
         return actionButtonB;
     }
 
+    /**
+     * Return the button menu of the gamepad
+     * @return The button of the gamepad
+     */
     public ActionKey getActionButtonMenu() {
         return actionButtonMenu;
     }
 
+    /**
+     * Return the background of the gamepad
+     * @return The background of the gamepad
+     */
     public Rectangle getRectPad() {
         return rectPad;
     }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
+ * Load the assets
  * Created by Guillaume Quittet on 11/12/16.
  */
 public class AssetLoader {
@@ -15,6 +16,9 @@ public class AssetLoader {
     public static TextureRegion actionButtonB;
     public static TextureRegion actionButtonMenu;
 
+    /**
+     * Load the assets
+     */
     public static void load() {
         Gdx.app.log("AssetLoader", "Load the assets");
         texture = new Texture(Gdx.files.internal("Images-Pack/textures.png"));
@@ -29,6 +33,9 @@ public class AssetLoader {
         actionButtonMenu.flip(false, true);
     }
 
+    /**
+     * Dispose the assets
+     */
     public static void dispose() {
         Gdx.app.log("AssetLoader", "Dispose the assets");
         texture.dispose();
