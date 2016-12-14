@@ -34,7 +34,7 @@ public class GameWorld {
 
     private void initWorldObjects() {
         updateCount = 0;
-        snake = new Snake(objectSize, 80, new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)});
+        snake = new Snake(objectSize, 80, 10, new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)});
         gamePad = new GamePad(32f, new Position(40f, 250f), snake);
         Position candyPosition = generatePosition();
         candy = new Candy(objectSize, candyPosition);
@@ -43,12 +43,14 @@ public class GameWorld {
     public int update(float delta) {
         //Gdx.app.log("GameWorld", "Update");
         updateCount++;
-        if (updateCount == 10) {
+        if (updateCount == snake.getSpeed()) {
             snake.update(delta);
             if (candy.getPosition().equals(snake.getHead())) {
                 snake.eatCandy(candy);
                 generateCandy();
             }
+            if (snake.getLength() > 10)
+                snake.setSpeed((int) ((float) ((1.0f / snake.getLength()) * 100)));
             if (snakeIsDead())
                 return 1;
             updateCount = 0;

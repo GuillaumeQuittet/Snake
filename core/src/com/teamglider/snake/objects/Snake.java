@@ -15,9 +15,11 @@ public class Snake {
     private int direction;
     private Position[] positions;
     private int length;
+    private int speed;
 
-    public Snake(int size, int length, Position[] positions) {
+    public Snake(int size, int length, int speed, Position[] positions) {
         this.size = size;
+        this.speed = speed;
         this.positions = new Position[length];
         direction = 2;
         this.length = 0;
@@ -44,7 +46,7 @@ public class Snake {
     }
 
     public void eatCandy(Candy candy) {
-        switch (getMoveDirection()) {
+        switch (direction) {
             case 0:
                 addPosition(new Position(positions[length - 1].getX() - size, positions[length - 1].getY()));
                 break;
@@ -58,28 +60,6 @@ public class Snake {
                 addPosition(new Position(positions[length - 1].getX(), positions[length - 1].getY() + size));
                 break;
         }
-    }
-
-    public int getMoveDirection() {
-        int direction;
-        float x1 = positions[length - 1].getX();
-        float x2 = positions[length - 2].getX();
-        float deltaX = x2 - x1;
-        float y1 = positions[length - 1].getY();
-        float y2 = positions[length - 2].getY();
-        float deltaY = y2 - y1;
-        if (deltaX == 0) {
-            if (deltaY > 0)
-                direction = 1;
-            else
-                direction = 3;
-        } else {
-            if (deltaX < 0)
-                direction = 0;
-            else
-                direction = 2;
-        }
-        return direction;
     }
 
     public int getSize() {
@@ -105,6 +85,14 @@ public class Snake {
         } catch (ArrayIndexOutOfBoundsException e) {
             Gdx.app.log("Game end", e.getMessage());
         }
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     public Position[] getPositions() {
