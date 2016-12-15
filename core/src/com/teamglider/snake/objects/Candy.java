@@ -82,8 +82,6 @@ public class Candy {
         }
         if (reGenerate)
             generatePosition(snake);
-        else
-            return new Position(x, y);
-        return null;
+        return new Position(x, y);
     }
 }
