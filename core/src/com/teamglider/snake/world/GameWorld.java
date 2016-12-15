@@ -6,8 +6,6 @@ import com.teamglider.snake.objects.GamePad;
 import com.teamglider.snake.objects.Score;
 import com.teamglider.snake.objects.Snake;
 
-import java.util.Random;
-
 /**
  * Created by Guillaume Quittet on 11/12/16.
  */
@@ -19,10 +17,10 @@ public class GameWorld {
     private Candy candy;
     private int updateCount;
 
+    private Score score;
+
     private int abscisses[];
     private int ordonnees[];
-
-    private Score score;
 
     public GameWorld() {
         objectSize = 5;
@@ -38,31 +36,33 @@ public class GameWorld {
 
     private void initWorldObjects() {
         updateCount = 0;
-        snake = new Snake(objectSize, 80, 10, new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)});
+        snake = new Snake(objectSize, 80, 2, new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)});
         gamePad = new GamePad(32f, new Position(40f, 250f), snake);
-        Position candyPosition = generatePosition();
-        candy = new Candy(objectSize, candyPosition);
+        candy = new Candy(objectSize, new Position(0, 0));
+        candy.generateCandy(snake);
     }
 
     public void update(float delta) {
         //Gdx.app.log("GameWorld", "Update");
         updateCount++;
-        if (updateCount == snake.getSpeed()) {
+        if (updateCount == ((int) (1f / snake.getSpeed() * 20))) {
             snake.update(delta);
             if (candy.getPosition().equals(snake.getHead())) {
                 snake.eatCandy(candy);
                 score.increaseScore(50);
-                generateCandy();
+                candy.generateCandy(snake);
             }
-            if (snake.getLength() > 10 && snake.getLength() < 20)
-                snake.setSpeed(7);
-            else if (snake.getLength() > 20 && snake.getLength() < 30)
-                snake.setSpeed(5);
-            else if (snake.getLength() > 30)
+            if (snake.getLength() >= 5 && snake.getLength() < 10)
                 snake.setSpeed(3);
+            if (snake.getLength() >= 10 && snake.getLength() < 20)
+                snake.setSpeed(4);
+            else if (snake.getLength() >= 20 && snake.getLength() < 30)
+                snake.setSpeed(6);
+            else if (snake.getLength() >= 30)
+                snake.setSpeed(8);
             if (snakeIsDead()) {
                 snake.setPositions(new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)}, 3);
-                snake.setSpeed(10);
+                snake.setSpeed(2);
                 score.setScore(0);
             }
             updateCount = 0;
@@ -79,19 +79,6 @@ public class GameWorld {
             return true;
         }
         return false;
-    }
-
-    private void generateCandy() {
-        Position candyPosition = generatePosition();
-        candy.setPosition(candyPosition);
-    }
-
-    private Position generatePosition() {
-        int r1 = new Random().nextInt(36);
-        int r2 = new Random().nextInt(36);
-        float x = abscisses[r1];
-        float y = ordonnees[r2];
-        return new Position(x, y);
     }
 
     public GamePad getGamePad() {
