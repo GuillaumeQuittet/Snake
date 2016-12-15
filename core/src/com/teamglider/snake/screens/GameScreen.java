@@ -18,10 +18,10 @@ public class GameScreen implements Screen {
     private boolean isPause;
     private String pauseText;
 
-    public GameScreen() {
+    public GameScreen(int viewWidth, int viewHeight) {
         Gdx.app.log("GameScreen", "Attached");
         gameWorld = new GameWorld();
-        gameRenderer = new GameRenderer(gameWorld, 180, 320);
+        gameRenderer = new GameRenderer(gameWorld, viewWidth, viewHeight);
         isPause = false;
         pauseText = "";
         Gdx.input.setInputProcessor(new InputHandler(gameWorld.getGamePad(), gameRenderer.getCamera()));

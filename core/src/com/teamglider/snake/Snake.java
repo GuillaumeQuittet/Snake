@@ -7,10 +7,17 @@ import com.teamglider.snake.screens.GameScreen;
 
 public class Snake extends Game {
 
+    private int viewWidth, viewHeight;
+
+    public Snake(int width, int height) {
+        viewWidth = width / 2;
+        viewHeight = height / 2;
+    }
+
     @Override
 	public void create() {
         Gdx.app.log("Snake", "Game created");
         AssetLoader.load();
-        setScreen(new GameScreen());
+        setScreen(new GameScreen(viewWidth, viewHeight));
     }
 }

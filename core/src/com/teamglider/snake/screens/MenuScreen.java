@@ -14,10 +14,10 @@ public class MenuScreen implements Screen {
     private MenuWorld menuWorld;
     private MenuRenderer renderer;
 
-    public MenuScreen() {
+    public MenuScreen(int viewWidth, int viewHeight) {
         Gdx.app.log("MenuScreen", "Attached");
         menuWorld = new MenuWorld();
-        renderer = new MenuRenderer(menuWorld, 180, 320);
+        renderer = new MenuRenderer(menuWorld, viewWidth, viewHeight);
         Gdx.input.setInputProcessor(new InputHandler(menuWorld.getGamePad(), renderer.getCamera()));
     }
 

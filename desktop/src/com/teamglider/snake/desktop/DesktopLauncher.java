@@ -10,6 +10,6 @@ public class DesktopLauncher {
 		config.title = "Snake";
 		config.width = 360;
 		config.height = 640;
-		new LwjglApplication(new Snake(), config);
+		new LwjglApplication(new Snake(config.width, config.height), config);
 	}
 }
