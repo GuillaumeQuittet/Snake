@@ -62,6 +62,7 @@ public class GameWorld {
                 snake.setPositions(new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)}, 3);
                 snake.setSpeed(1);
                 score.setScore(0);
+                candy.generateCandy(snake);
             }
             updateCount = 0;
         }
