@@ -36,7 +36,7 @@ public class GameWorld {
 
     private void initWorldObjects() {
         updateCount = 0;
-        snake = new Snake(objectSize, 80, 2, new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)});
+        snake = new Snake(objectSize, 80, 1, new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)});
         gamePad = new GamePad(32f, new Position(40f, 250f), snake);
         candy = new Candy(objectSize, new Position(0, 0));
         candy.generateCandy(snake);
@@ -52,17 +52,15 @@ public class GameWorld {
                 score.increaseScore(50);
                 candy.generateCandy(snake);
             }
-            if (snake.getLength() >= 5 && snake.getLength() < 10)
-                snake.setSpeed(3);
-            if (snake.getLength() >= 10 && snake.getLength() < 20)
-                snake.setSpeed(4);
-            else if (snake.getLength() >= 20 && snake.getLength() < 30)
-                snake.setSpeed(6);
-            else if (snake.getLength() >= 30)
-                snake.setSpeed(8);
+            float speed = 1.0f;
+            for (int i = 5; i < snake.getMaxLength(); i += 5) {
+                speed += 0.5f;
+                if (snake.getLength() >= i && snake.getLength() < i + 5)
+                    snake.setSpeed(speed);
+            }
             if (snakeIsDead()) {
                 snake.setPositions(new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)}, 3);
-                snake.setSpeed(2);
+                snake.setSpeed(1);
                 score.setScore(0);
             }
             updateCount = 0;

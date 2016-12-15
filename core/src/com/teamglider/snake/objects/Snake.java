@@ -15,21 +15,23 @@ public class Snake {
     private int direction;
     private Position[] positions;
     private int length;
-    private int speed;
+    private int maxLength;
+    private float speed;
     private boolean canChangeDirection;
 
     /**
      * The Snake
      *
      * @param size      The size of the snake
-     * @param length    The maximum length of the snake
+     * @param maxLength The maximum length of the snake
      * @param speed     The speed of the snake
      * @param positions The first part of the snake
      */
-    public Snake(int size, int length, int speed, Position[] positions) {
+    public Snake(int size, int maxLength, float speed, Position[] positions) {
         this.size = size;
         this.speed = speed;
-        this.positions = new Position[length];
+        this.maxLength = maxLength;
+        this.positions = new Position[maxLength];
         canChangeDirection = true;
         direction = 2;
         this.length = 0;
@@ -133,7 +135,7 @@ public class Snake {
      * Return the current speed of the snake
      * @return speed The current speed of the snake
      */
-    public int getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 
@@ -141,7 +143,7 @@ public class Snake {
      * Set the speed of the snake
      * @param speed The speed of the snake
      */
-    public void setSpeed(int speed) {
+    public void setSpeed(float speed) {
         this.speed = speed;
     }
 
@@ -182,5 +184,9 @@ public class Snake {
         for (int i = 0; i < length; ++i) {
             addPosition(positions[i]);
         }
+    }
+
+    public int getMaxLength() {
+        return maxLength;
     }
 }
