@@ -1,10 +1,7 @@
 package com.teamglider.snake.world;
 
 import com.teamglider.snake.helpers.Position;
-import com.teamglider.snake.objects.Candy;
-import com.teamglider.snake.objects.GamePad;
-import com.teamglider.snake.objects.Score;
-import com.teamglider.snake.objects.Snake;
+import com.teamglider.snake.objects.*;
 
 /**
  * Created by Guillaume Quittet on 11/12/16.
@@ -19,26 +16,20 @@ public class GameWorld {
 
     private Score score;
 
-    private int abscisses[];
-    private int ordonnees[];
+    private Map map;
 
-    public GameWorld() {
+    public GameWorld(int viewWidth) {
         objectSize = 5;
         score = new Score();
-        abscisses = new int[36];
-        ordonnees = new int[36];
-        for (int i = 0, j = 30; i < 180 && j < 210; i += 5, j += 5) {
-            abscisses[i / 5] = i;
-            ordonnees[i / 5] = j;
-        }
-        initWorldObjects();
+        initWorldObjects(viewWidth);
     }
 
-    private void initWorldObjects() {
+    private void initWorldObjects(int viewWidth) {
         updateCount = 0;
         snake = new Snake(objectSize, 80, 1, new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)});
+        map = new Map(viewWidth, snake.getSize());
         gamePad = new GamePad(32f, new Position(40f, 250f), snake);
-        candy = new Candy(objectSize, new Position(0, 0));
+        candy = new Candy(objectSize, new Position(0, 0), map);
         candy.generateCandy(snake);
     }
 
@@ -74,7 +65,7 @@ public class GameWorld {
                 return true;
             }
         }
-        if (snake.getHead().getX() < abscisses[0] || snake.getHead().getX() > abscisses[35] || snake.getHead().getY() < ordonnees[0] || snake.getHead().getY() > ordonnees[35]) {
+        if (snake.getHead().getX() < map.getAbscisses()[0] || snake.getHead().getX() > map.getAbscisses()[35] || snake.getHead().getY() < map.getOrdonnees()[0] || snake.getHead().getY() > map.getOrdonnees()[35]) {
             return true;
         }
         return false;

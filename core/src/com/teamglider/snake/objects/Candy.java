@@ -12,9 +12,7 @@ public class Candy {
 
     private Position position;
     private int size;
-
-    private int abscisses[];
-    private int ordonnees[];
+    private Map map;
 
     /**
      * A new Candy
@@ -22,15 +20,10 @@ public class Candy {
      * @param size     The size of the square
      * @param position The position of the square
      */
-    public Candy(int size, Position position) {
+    public Candy(int size, Position position, Map map) {
         this.size = size;
         this.position = position;
-        abscisses = new int[36];
-        ordonnees = new int[36];
-        for (int i = 0, j = 30; i < 180 && j < 210; i += 5, j += 5) {
-            abscisses[i / 5] = i;
-            ordonnees[i / 5] = j;
-        }
+        this.map = map;
     }
 
     /**
@@ -70,8 +63,8 @@ public class Candy {
         Position position;
         int r1 = new Random().nextInt(36);
         int r2 = new Random().nextInt(36);
-        x = abscisses[r1];
-        y = ordonnees[r2];
+        x = map.getAbscisses()[r1];
+        y = map.getOrdonnees()[r2];
         position = new Position(x, y);
         for (int i = 0; i < snake.getLength(); i++) {
             if (snake.getPositions()[i].equals(position)) {

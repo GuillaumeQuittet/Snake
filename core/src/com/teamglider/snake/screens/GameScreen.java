@@ -20,7 +20,7 @@ public class GameScreen implements Screen {
 
     public GameScreen(int viewWidth, int viewHeight) {
         Gdx.app.log("GameScreen", "Attached");
-        gameWorld = new GameWorld();
+        gameWorld = new GameWorld(viewWidth);
         gameRenderer = new GameRenderer(gameWorld, viewWidth, viewHeight);
         isPause = false;
         pauseText = "";
