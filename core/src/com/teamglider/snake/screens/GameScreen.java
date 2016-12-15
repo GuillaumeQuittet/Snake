@@ -21,7 +21,7 @@ public class GameScreen implements Screen {
     public GameScreen() {
         Gdx.app.log("GameScreen", "Attached");
         gameWorld = new GameWorld();
-        gameRenderer = new GameRenderer(gameWorld);
+        gameRenderer = new GameRenderer(gameWorld, 180, 320);
         isPause = false;
         pauseText = "";
         Gdx.input.setInputProcessor(new InputHandler(gameWorld.getGamePad(), gameRenderer.getCamera()));
@@ -29,7 +29,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-
+        Gdx.app.log("GameScreen", "Show");
     }
 
     @Override

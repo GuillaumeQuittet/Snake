@@ -23,6 +23,7 @@ public class GameRenderer {
 
     // Create the camera
     private OrthographicCamera camera;
+    private int viewWidth, viewHeight;
     // The drawing tools
     private ShapeRenderer shapeRenderer;
     private SpriteBatch spriteBatch;
@@ -42,8 +43,10 @@ public class GameRenderer {
     private Candy candy;
 
 
-    public GameRenderer(GameWorld gameWorld) {
+    public GameRenderer(GameWorld gameWorld, int viewWidth, int viewHeight) {
         this.gameWorld = gameWorld;
+        this.viewWidth = viewWidth;
+        this.viewHeight = viewHeight;
         initGameObjects();
         initRendererObjects();
     }
@@ -63,7 +66,7 @@ public class GameRenderer {
 
     private void initRendererObjects() {
         camera = new OrthographicCamera();
-        camera.setToOrtho(true, 180, 320);
+        camera.setToOrtho(true, viewWidth, viewHeight);
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(camera.combined);
         spriteBatch = new SpriteBatch();
