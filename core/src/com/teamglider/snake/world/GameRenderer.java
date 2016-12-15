@@ -76,10 +76,8 @@ public class GameRenderer {
         shapeRenderer.rect(0, 0, 180, 30);
         shapeRenderer.end();
         spriteBatch.begin();
-        AssetLoader.shadow.draw(spriteBatch, gameWorld.getScore().toString(), 5, 7);
-        AssetLoader.font.draw(spriteBatch, gameWorld.getScore().toString(), 5, 6);
-        AssetLoader.shadow.draw(spriteBatch, pauseText, 120, 7);
-        AssetLoader.font.draw(spriteBatch, pauseText, 120, 6);
+        AssetLoader.font.draw(spriteBatch, gameWorld.getScore().toString(), 5, 8);
+        AssetLoader.font.draw(spriteBatch, pauseText, 130, 8);
         spriteBatch.end();
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(0, 0, 0, 1);

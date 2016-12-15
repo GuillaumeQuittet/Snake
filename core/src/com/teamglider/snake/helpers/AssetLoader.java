@@ -17,7 +17,7 @@ public class AssetLoader {
     public static TextureRegion actionButtonB;
     public static TextureRegion actionButtonMenu;
 
-    public static BitmapFont font, shadow;
+    public static BitmapFont font;
 
     /**
      * Load the assets
@@ -34,10 +34,8 @@ public class AssetLoader {
         actionButtonB.flip(false, true);
         actionButtonMenu = new TextureRegion(texture, 391, 1, 128, 128);
         actionButtonMenu.flip(false, true);
-        font = new BitmapFont(Gdx.files.internal("Fonts/text.fnt"));
-        font.getData().setScale(0.25f, -0.25f);
-        shadow = new BitmapFont(Gdx.files.internal("Fonts/shadow.fnt"));
-        shadow.getData().setScale(0.25f, -0.25f);
+        font = new BitmapFont(Gdx.files.internal("Fonts/arial.fnt"));
+        font.getData().setScale(0.5f, -0.5f);
     }
 
     /**
@@ -47,7 +45,6 @@ public class AssetLoader {
         Gdx.app.log("AssetLoader", "Dispose the assets");
         texture.dispose();
         font.dispose();
-        shadow.dispose();
     }
 
 }
