@@ -7,13 +7,16 @@ import com.teamglider.snake.Snake;
 
 public class HtmlLauncher extends GwtApplication {
 
+    private int width = 360;
+    private int height = 640;
+
         @Override
         public GwtApplicationConfiguration getConfig () {
-                return new GwtApplicationConfiguration(360, 640);
+            return new GwtApplicationConfiguration(width, height);
         }
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new Snake();
+            return new Snake(width, height);
         }
 }
