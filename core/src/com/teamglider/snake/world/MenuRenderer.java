@@ -120,12 +120,17 @@ public class MenuRenderer {
         spriteBatch.end();
     }
 
+    private void renderMenu() {
+
+    }
+
     public void render() {
         //Gdx.app.log("GameRenderer", "Render");
         gl.glClearColor(0, 0, 0, 1);
         gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         renderGameScreen();
         renderGamePad();
+        renderMenu();
     }
 
     public OrthographicCamera getCamera() {
