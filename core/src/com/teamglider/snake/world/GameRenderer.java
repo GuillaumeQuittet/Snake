@@ -144,7 +144,7 @@ public class GameRenderer {
 
     private void renderSnake() {
         shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(1, 1, 1, 1);
+        shapeRenderer.setColor(snake.getColor());
         Position position;
         for (int i = 0; i < snake.getLength(); ++i) {
             position = snake.getPositions()[i];

@@ -8,9 +8,9 @@ import com.teamglider.snake.objects.*;
  */
 public class GameWorld {
 
+    public static Snake snake;
     private GamePad gamePad;
     private int objectSize;
-    private Snake snake;
     private Candy candy;
     private int updateCount;
 
@@ -28,7 +28,8 @@ public class GameWorld {
         updateCount = 0;
         snake = new Snake(objectSize, 80, 1, new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)});
         map = new Map(viewWidth, snake.getSize());
-        gamePad = new GamePad(32f, new Position(40f, 250f), snake);
+        gamePad = com.teamglider.snake.Snake.gamePad;
+        gamePad.attachSnake(snake);
         candy = new Candy(objectSize, new Position(0, 0), map);
         candy.generateCandy(snake);
     }

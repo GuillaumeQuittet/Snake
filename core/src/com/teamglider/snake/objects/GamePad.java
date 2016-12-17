@@ -28,12 +28,10 @@ public class GamePad {
      *
      * @param size     The size of a key
      * @param position The position of center of the cross
-     * @param snake    The snake
      */
-    public GamePad(float size, Position position, Snake snake) {
+    public GamePad(float size, Position position) {
         this.size = size;
         this.position = position;
-        this.snake = snake;
         initActionObjects();
     }
 
@@ -183,5 +181,9 @@ public class GamePad {
      */
     public Rectangle getRectPad() {
         return rectPad;
+    }
+
+    public void attachSnake(Snake snake) {
+        this.snake = snake;
     }
 }

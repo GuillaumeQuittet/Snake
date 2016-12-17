@@ -1,5 +1,6 @@
 package com.teamglider.snake.objects;
 
+import com.badlogic.gdx.graphics.Color;
 import com.teamglider.snake.helpers.Position;
 
 import java.util.Random;
@@ -12,6 +13,7 @@ public class Candy {
 
     private Position position;
     private int size;
+    private Color color;
     private Map map;
 
     /**
@@ -24,6 +26,7 @@ public class Candy {
         this.size = size;
         this.position = position;
         this.map = map;
+        color = new Color(1, 1, 1, 1);
     }
 
     /**
@@ -76,5 +79,13 @@ public class Candy {
         if (reGenerate)
             position = generatePosition(snake);
         return position;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

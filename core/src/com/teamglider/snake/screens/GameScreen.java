@@ -3,7 +3,7 @@ package com.teamglider.snake.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.teamglider.snake.helpers.AssetLoader;
-import com.teamglider.snake.helpers.InputHandler;
+import com.teamglider.snake.helpers.SnakeInputHandler;
 import com.teamglider.snake.world.GameRenderer;
 import com.teamglider.snake.world.GameWorld;
 
@@ -24,7 +24,7 @@ public class GameScreen implements Screen {
         gameRenderer = new GameRenderer(gameWorld, viewWidth, viewHeight);
         isPause = false;
         pauseText = "";
-        Gdx.input.setInputProcessor(new InputHandler(gameWorld.getGamePad(), gameRenderer.getCamera()));
+        Gdx.input.setInputProcessor(new SnakeInputHandler(gameWorld.getGamePad(), gameRenderer.getCamera()));
     }
 
     @Override

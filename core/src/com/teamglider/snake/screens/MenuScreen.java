@@ -2,7 +2,7 @@ package com.teamglider.snake.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.teamglider.snake.helpers.InputHandler;
+import com.teamglider.snake.helpers.MenuInputHandler;
 import com.teamglider.snake.world.MenuRenderer;
 import com.teamglider.snake.world.MenuWorld;
 
@@ -18,7 +18,7 @@ public class MenuScreen implements Screen {
         Gdx.app.log("MenuScreen", "Attached");
         menuWorld = new MenuWorld();
         renderer = new MenuRenderer(menuWorld, viewWidth, viewHeight);
-        Gdx.input.setInputProcessor(new InputHandler(menuWorld.getGamePad(), renderer.getCamera()));
+        Gdx.input.setInputProcessor(new MenuInputHandler(menuWorld.getGamePad(), renderer.getCamera()));
     }
 
     @Override
@@ -28,7 +28,9 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.app.log("MenuScreen", "Render");
+//        Gdx.app.log("MenuScreen", "Render");
+        menuWorld.update();
+        renderer.render();
     }
 
     @Override

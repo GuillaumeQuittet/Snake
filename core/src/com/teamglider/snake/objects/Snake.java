@@ -1,6 +1,7 @@
 package com.teamglider.snake.objects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.teamglider.snake.helpers.Position;
 
 /**
@@ -17,6 +18,7 @@ public class Snake {
     private int length;
     private int maxLength;
     private float speed;
+    private Color color;
     private boolean canChangeDirection;
 
     /**
@@ -35,6 +37,7 @@ public class Snake {
         canChangeDirection = true;
         direction = 2;
         this.length = 0;
+        color = new Color(1, 1, 1, 1);
         for (Position position:positions) {
             addPosition(position);
         }
@@ -188,5 +191,13 @@ public class Snake {
 
     public int getMaxLength() {
         return maxLength;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }
