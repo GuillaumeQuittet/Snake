@@ -9,6 +9,7 @@ import com.teamglider.snake.objects.*;
 public class GameWorld {
 
     public static Snake snake;
+    private int viewWidth;
     private GamePad gamePad;
     private int objectSize;
     private Candy candy;
@@ -19,12 +20,13 @@ public class GameWorld {
     private Map map;
 
     public GameWorld(int viewWidth) {
+        this.viewWidth = viewWidth;
         objectSize = 5;
         score = new Score();
-        initWorldObjects(viewWidth);
+        initWorldObjects();
     }
 
-    private void initWorldObjects(int viewWidth) {
+    private void initWorldObjects() {
         updateCount = 0;
         snake = new Snake(objectSize, 80, 1, new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)});
         map = new Map(viewWidth, snake.getSize());
@@ -41,7 +43,10 @@ public class GameWorld {
             snake.update(delta);
             if (candy.getPosition().equals(snake.getHead())) {
                 snake.eatCandy(candy);
-                score.increaseScore(50);
+                if (candy.getPosition().getX() <= candy.getSize() || candy.getPosition().getX() >= viewWidth - candy.getSize() || candy.getPosition().getY() - 30 <= candy.getSize() || candy.getPosition().getY() - 30 >= viewWidth - candy.getSize())
+                    score.increaseScore(150);
+                else
+                    score.increaseScore(50);
                 candy.generateCandy(snake);
             }
             float speed = 1.0f;
