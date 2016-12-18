@@ -29,7 +29,7 @@ public class GameWorld {
 
     private void initWorldObjects() {
         updateCount = 0;
-        snake = new Snake(objectSize, 80, 1, new Position[]{new Position(100, 20), new Position(105, 20), new Position(110, 20)});
+        snake = new Snake(objectSize, 80, 1, new Position[]{new Position(85, 85), new Position(90, 85), new Position(95, 85)});
         map = new Map(viewWidth, snake.getSize());
         gamePad = com.teamglider.snake.Snake.gamePad;
         gamePad.attachSnake(snake);
