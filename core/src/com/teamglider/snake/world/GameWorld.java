@@ -1,7 +1,10 @@
 package com.teamglider.snake.world;
 
 import com.teamglider.snake.helpers.Position;
-import com.teamglider.snake.objects.*;
+import com.teamglider.snake.objects.Candy;
+import com.teamglider.snake.objects.GamePad;
+import com.teamglider.snake.objects.Score;
+import com.teamglider.snake.objects.Snake;
 
 /**
  * GameWorld class
@@ -18,8 +21,6 @@ public class GameWorld {
 
     private Score score;
 
-    private Map map;
-
     public GameWorld(int viewWidth) {
         this.viewWidth = viewWidth;
         objectSize = 5;
@@ -29,11 +30,12 @@ public class GameWorld {
 
     private void initWorldObjects() {
         updateCount = 0;
-        snake = new Snake(objectSize, 80, 1, new Position[]{new Position(85, 85), new Position(90, 85), new Position(95, 85)});
-        map = new Map(viewWidth, snake.getSize());
+        snake = new Snake(objectSize, 80, 1, new Position[]{new Position(85, 85), new Position(90, 85), new Position(95, 85)}, 3);
+        snake.initMap(viewWidth);
         gamePad = com.teamglider.snake.Snake.gamePad;
         gamePad.attachSnake(snake);
-        candy = new Candy(objectSize, new Position(0, 0), map);
+        candy = new Candy(objectSize, new Position(0, 0));
+        candy.initMap(viewWidth);
         candy.generateCandy(snake);
     }
 
@@ -42,16 +44,8 @@ public class GameWorld {
         updateCount++;
         if (updateCount == ((int) (1f / snake.getSpeed() * 20))) {
             snake.update(delta);
-            if (candy.getPosition().equals(snake.getHead())) {
-                snake.eatCandy(candy);
-                if ((candy.getPosition().getX() < candy.getSize() && (candy.getPosition().getY() < candy.getSize() || candy.getPosition().getY() >= viewWidth - candy.getSize())) || (candy.getPosition().getX() >= viewWidth - candy.getSize() && (candy.getPosition().getY() < candy.getSize() || candy.getPosition().getY() >= viewWidth - candy.getSize())))
-                    score.increaseScore(250 + score.getIncreaseValue());
-                else if (candy.getPosition().getX() < candy.getSize() || candy.getPosition().getX() >= viewWidth - candy.getSize() || candy.getPosition().getY() < candy.getSize() || candy.getPosition().getY() >= viewWidth - candy.getSize())
-                    score.increaseScore(100 + score.getIncreaseValue());
-                else
-                    score.increaseScore();
-                candy.generateCandy(snake);
-            }
+            if (candy.getPosition().equals(snake.getHead()))
+                snake.eatCandy(candy, score);
             float speed = 1.0f;
             int scoreValue = 0;
             for (int i = 5; i < snake.getMaxLength(); i += 5) {
@@ -62,7 +56,7 @@ public class GameWorld {
                     score.setIncreaseValue(scoreValue);
                 }
             }
-            if (snakeIsDead()) {
+            if (snake.isDead()) {
                 resetGame();
             }
             updateCount = 0;
@@ -70,20 +64,9 @@ public class GameWorld {
     }
 
     private void resetGame() {
-        snake.setPositions(new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)}, 3);
-        snake.setSpeed(1);
-        score.setScore(0);
-        score.setIncreaseValue(5);
+        snake.reset();
+        score.reset();
         candy.generateCandy(snake);
-    }
-
-    private boolean snakeIsDead() {
-        for (int i = 3; i < snake.getLength(); ++i) {
-            if (snake.getPositions()[i].getX() == snake.getHead().getX() && snake.getPositions()[i].getY() == snake.getHead().getY()) {
-                return true;
-            }
-        }
-        return (map.getVertices()[0] > snake.getHead().getX() || map.getVertices()[0] > snake.getHead().getY() || map.getVertices()[35] < snake.getHead().getX() || map.getVertices()[35] < snake.getHead().getY());
     }
 
     public GamePad getGamePad() {

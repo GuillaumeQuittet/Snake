@@ -9,12 +9,7 @@ import java.util.Random;
  * A candy that feed my snake
  * Created by Guillaume Quittet on 13/12/16.
  */
-public class Candy {
-
-    private Position position;
-    private int size;
-    private Color color;
-    private Map map;
+public class Candy extends GameObject {
 
     /**
      * A new Candy
@@ -22,37 +17,11 @@ public class Candy {
      * @param size     The size of the square
      * @param position The position of the square
      */
-    public Candy(int size, Position position, Map map) {
-        this.size = size;
-        this.position = position;
-        this.map = map;
-        color = new Color(1, 1, 1, 1);
+    public Candy(int size, Position position) {
+        super(size);
+        setPosition(position);
+        setColor(new Color(1, 1, 1, 1));
     }
-
-    /**
-     * Return the positon of the candy
-     * @return The size of the snake
-     */
-    public Position getPosition() {
-        return position;
-    }
-
-    /**
-     * Set the position of the candy
-     * @param position The position of the candy
-     */
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    /**
-     * Return the size of the candy
-     * @return The size of the square
-     */
-    public int getSize() {
-        return size;
-    }
-
 
     public void generateCandy(Snake snake) {
         Position candyPosition = generatePosition(snake);
@@ -66,8 +35,8 @@ public class Candy {
         Position position;
         int r1 = new Random().nextInt(36);
         int r2 = new Random().nextInt(36);
-        x = map.getVertices()[r1];
-        y = map.getVertices()[r2];
+        x = super.getMap().getVertices()[r1];
+        y = super.getMap().getVertices()[r2];
         position = new Position(x, y);
         for (int i = 0; i < snake.getLength(); i++) {
             if (snake.getPositions()[i].equals(position)) {
@@ -79,13 +48,5 @@ public class Candy {
         if (reGenerate)
             position = generatePosition(snake);
         return position;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
     }
 }

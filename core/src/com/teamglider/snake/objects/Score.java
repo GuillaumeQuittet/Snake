@@ -9,14 +9,18 @@ public class Score {
     private int score;
     private int increaseValue;
 
+    private int initIncreaseValue;
+
     public Score(int score, int increaseValue) {
         this.score = score;
         this.increaseValue = increaseValue;
+        initIncreaseValue = increaseValue;
     }
 
     public Score(int increaseValue) {
         this.score = 0;
         this.increaseValue = increaseValue;
+        initIncreaseValue = increaseValue;
     }
 
     public int getScore() {
@@ -27,20 +31,25 @@ public class Score {
         this.score = score;
     }
 
-    public void increaseScore(int x) {
+    void increaseScore(int x) {
         score += x;
     }
 
-    public void increaseScore() {
+    void increaseScore() {
         score += increaseValue;
     }
 
-    public int getIncreaseValue() {
+    int getIncreaseValue() {
         return increaseValue;
     }
 
     public void setIncreaseValue(int increaseValue) {
         this.increaseValue = increaseValue;
+    }
+
+    public void reset() {
+        score = 0;
+        increaseValue = initIncreaseValue;
     }
 
     public String toString() {

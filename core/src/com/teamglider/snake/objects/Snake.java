@@ -5,20 +5,22 @@ import com.badlogic.gdx.graphics.Color;
 import com.teamglider.snake.helpers.Position;
 
 /**
+ * Snake
  * Created by Guillaume Quittet on 12/12/16.
  */
-public class Snake {
+public class Snake extends GameObject {
 
-    private int size;
     // The direction of the Snake
     // 0: right 1: down
     // 2: left 3: up
     private int direction;
+    private Position[] initPositions;
+    private int positionLength;
     private Position[] positions;
     private int length;
     private int maxLength;
     private float speed;
-    private Color color;
+    private float initSpeed;
     private boolean canChangeDirection;
 
     /**
@@ -29,15 +31,18 @@ public class Snake {
      * @param speed     The speed of the snake
      * @param positions The first part of the snake
      */
-    public Snake(int size, int maxLength, float speed, Position[] positions) {
-        this.size = size;
+    public Snake(int size, int maxLength, float speed, Position[] positions, int positionLength) {
+        super(size);
         this.speed = speed;
+        this.initSpeed = speed;
         this.maxLength = maxLength;
         this.positions = new Position[maxLength];
+        this.positionLength = positionLength;
+        this.initPositions = positions;
         canChangeDirection = true;
         direction = 2;
         this.length = 0;
-        color = new Color(1, 1, 1, 1);
+        setColor(new Color(1, 1, 1, 1));
         for (Position position:positions) {
             addPosition(position);
         }
@@ -55,13 +60,13 @@ public class Snake {
             positions[i-1] = posTemp;
         }
         if (direction == 0)
-            positions[0] = new Position(positions[1].getX() + size, positions[1].getY());
+            positions[0] = new Position(positions[1].getX() + getSize(), positions[1].getY());
         else if (direction == 1)
-            positions[0] = new Position(positions[1].getX(), positions[1].getY() + size);
+            positions[0] = new Position(positions[1].getX(), positions[1].getY() + getSize());
         else if (direction == 2)
-            positions[0] = new Position(positions[1].getX() - size, positions[1].getY());
+            positions[0] = new Position(positions[1].getX() - getSize(), positions[1].getY());
         else if (direction == 3)
-            positions[0] = new Position(positions[1].getX(), positions[1].getY() - size);
+            positions[0] = new Position(positions[1].getX(), positions[1].getY() - getSize());
         canChangeDirection = true;
     }
 
@@ -69,29 +74,42 @@ public class Snake {
      * Eat a candy and increase the length of the snake
      * @param candy A candy
      */
-    public void eatCandy(Candy candy) {
+    public void eatCandy(Candy candy, Score score) {
         switch (direction) {
             case 0:
-                addPosition(new Position(positions[length - 1].getX() - size, positions[length - 1].getY()));
+                addPosition(new Position(positions[length - 1].getX() - getSize(), positions[length - 1].getY()));
                 break;
             case 1:
-                addPosition(new Position(positions[length - 1].getX(), positions[length - 1].getY() - size));
+                addPosition(new Position(positions[length - 1].getX(), positions[length - 1].getY() - getSize()));
                 break;
             case 2:
-                addPosition(new Position(positions[length - 1].getX() + size, positions[length - 1].getY()));
+                addPosition(new Position(positions[length - 1].getX() + getSize(), positions[length - 1].getY()));
                 break;
             case 3:
-                addPosition(new Position(positions[length - 1].getX(), positions[length - 1].getY() + size));
+                addPosition(new Position(positions[length - 1].getX(), positions[length - 1].getY() + getSize()));
                 break;
         }
+        if ((candy.getPosition().getX() < candy.getSize() && (candy.getPosition().getY() < candy.getSize() || candy.getPosition().getY() >= getViewWidth() - candy.getSize())) || (candy.getPosition().getX() >= getViewWidth() - candy.getSize() && (candy.getPosition().getY() < candy.getSize() || candy.getPosition().getY() >= getViewWidth() - candy.getSize())))
+            score.increaseScore(250 + score.getIncreaseValue());
+        else if (candy.getPosition().getX() < candy.getSize() || candy.getPosition().getX() >= getViewWidth() - candy.getSize() || candy.getPosition().getY() < candy.getSize() || candy.getPosition().getY() >= getViewWidth() - candy.getSize())
+            score.increaseScore(100 + score.getIncreaseValue());
+        else
+            score.increaseScore();
+        candy.generateCandy(this);
     }
 
-    /**
-     * Return the size of the snake.
-     * @return size The size of one part of the snake
-     */
-    public int getSize() {
-        return size;
+    public boolean isDead() {
+        for (int i = 3; i < getLength(); ++i) {
+            if (getPositions()[i].getX() == getHead().getX() && getPositions()[i].getY() == getHead().getY()) {
+                return true;
+            }
+        }
+        return (getMap().getVertices()[0] > getHead().getX() || getMap().getVertices()[0] > getHead().getY() || getMap().getVertices()[35] < getHead().getX() || getMap().getVertices()[35] < getHead().getY());
+    }
+
+    public void reset() {
+        setPositions(initPositions, positionLength);
+        setSpeed(initSpeed);
     }
 
     /**
@@ -106,7 +124,7 @@ public class Snake {
      * Return the current direction that the snake is moving from it(0:right, 1: down, 2:left, 3:up)
      * @return direction The direction of the snake
      */
-    public int getDirection() {
+    int getDirection() {
         return direction;
     }
 
@@ -114,7 +132,7 @@ public class Snake {
      * Set the snake direction
      * @param direction The snake direction
      */
-    public void setDirection(int direction) {
+    void setDirection(int direction) {
         if (canChangeDirection) {
             this.direction = direction;
             canChangeDirection = false;
@@ -125,7 +143,7 @@ public class Snake {
      * Add a part of the snake.
      * @param position A part of the snake
      */
-    public void addPosition(Position position) {
+    private void addPosition(Position position) {
         try {
             positions[length] = position;
             length += 1;
@@ -182,7 +200,7 @@ public class Snake {
      * @param positions The table of the snake
      * @param length The length of this table
      */
-    public void setPositions(Position[] positions, int length) {
+    private void setPositions(Position[] positions, int length) {
         emptyPositions();
         for (int i = 0; i < length; ++i) {
             addPosition(positions[i]);
@@ -191,13 +209,5 @@ public class Snake {
 
     public int getMaxLength() {
         return maxLength;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
     }
 }
