@@ -15,6 +15,7 @@ import static com.badlogic.gdx.Gdx.gl;
 import static com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 /**
+ * GameRender class
  * Created by Guillaume Quittet on 11/12/16.
  */
 public class GameRenderer {
@@ -148,16 +149,15 @@ public class GameRenderer {
         Position position;
         for (int i = 0; i < snake.getLength(); ++i) {
             position = snake.getPositions()[i];
-            shapeRenderer.rect(position.getX(), position.getY(),
+            shapeRenderer.rect(position.getX(), position.getY() + 30,
                     snake.getSize(), snake.getSize());
         }
         shapeRenderer.end();
         shapeRenderer.begin(ShapeType.Line);
         shapeRenderer.setColor(0, 0, 0, 1);
-        position = null;
         for (int i = 0; i < snake.getLength(); ++i) {
             position = snake.getPositions()[i];
-            shapeRenderer.rect(position.getX(), position.getY(),
+            shapeRenderer.rect(position.getX(), position.getY() + 30,
                     snake.getSize(), snake.getSize());
         }
         shapeRenderer.end();
@@ -166,7 +166,7 @@ public class GameRenderer {
     private void renderCandy() {
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(1, 1, 1, 1);
-        shapeRenderer.rect(candy.getPosition().getX(), candy.getPosition().getY(),
+        shapeRenderer.rect(candy.getPosition().getX(), candy.getPosition().getY() + 30,
                 candy.getSize(), candy.getSize());
         shapeRenderer.end();
     }

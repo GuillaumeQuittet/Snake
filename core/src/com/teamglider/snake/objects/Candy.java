@@ -66,8 +66,8 @@ public class Candy {
         Position position;
         int r1 = new Random().nextInt(36);
         int r2 = new Random().nextInt(36);
-        x = map.getAbscisses()[r1];
-        y = map.getOrdonnees()[r2];
+        x = map.getVertices()[r1];
+        y = map.getVertices()[r2];
         position = new Position(x, y);
         for (int i = 0; i < snake.getLength(); i++) {
             if (snake.getPositions()[i].equals(position)) {

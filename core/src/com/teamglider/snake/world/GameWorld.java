@@ -4,6 +4,7 @@ import com.teamglider.snake.helpers.Position;
 import com.teamglider.snake.objects.*;
 
 /**
+ * GameWorld class
  * Created by Guillaume Quittet on 11/12/16.
  */
 public class GameWorld {
@@ -22,13 +23,13 @@ public class GameWorld {
     public GameWorld(int viewWidth) {
         this.viewWidth = viewWidth;
         objectSize = 5;
-        score = new Score();
+        score = new Score(5);
         initWorldObjects();
     }
 
     private void initWorldObjects() {
         updateCount = 0;
-        snake = new Snake(objectSize, 80, 1, new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)});
+        snake = new Snake(objectSize, 80, 1, new Position[]{new Position(100, 20), new Position(105, 20), new Position(110, 20)});
         map = new Map(viewWidth, snake.getSize());
         gamePad = com.teamglider.snake.Snake.gamePad;
         gamePad.attachSnake(snake);
@@ -43,26 +44,37 @@ public class GameWorld {
             snake.update(delta);
             if (candy.getPosition().equals(snake.getHead())) {
                 snake.eatCandy(candy);
-                if (candy.getPosition().getX() <= candy.getSize() || candy.getPosition().getX() >= viewWidth - candy.getSize() || candy.getPosition().getY() - 30 <= candy.getSize() || candy.getPosition().getY() - 30 >= viewWidth - candy.getSize())
-                    score.increaseScore(150);
+                if ((candy.getPosition().getX() < candy.getSize() && (candy.getPosition().getY() < candy.getSize() || candy.getPosition().getY() >= viewWidth - candy.getSize())) || (candy.getPosition().getX() >= viewWidth - candy.getSize() && (candy.getPosition().getY() < candy.getSize() || candy.getPosition().getY() >= viewWidth - candy.getSize())))
+                    score.increaseScore(250 + score.getIncreaseValue());
+                else if (candy.getPosition().getX() < candy.getSize() || candy.getPosition().getX() >= viewWidth - candy.getSize() || candy.getPosition().getY() < candy.getSize() || candy.getPosition().getY() >= viewWidth - candy.getSize())
+                    score.increaseScore(100 + score.getIncreaseValue());
                 else
-                    score.increaseScore(50);
+                    score.increaseScore();
                 candy.generateCandy(snake);
             }
             float speed = 1.0f;
+            int scoreValue = 0;
             for (int i = 5; i < snake.getMaxLength(); i += 5) {
                 speed += 0.5f;
-                if (snake.getLength() >= i && snake.getLength() < i + 5)
+                scoreValue += 10;
+                if (snake.getLength() >= i && snake.getLength() < i + 5) {
                     snake.setSpeed(speed);
+                    score.setIncreaseValue(scoreValue);
+                }
             }
             if (snakeIsDead()) {
-                snake.setPositions(new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)}, 3);
-                snake.setSpeed(1);
-                score.setScore(0);
-                candy.generateCandy(snake);
+                resetGame();
             }
             updateCount = 0;
         }
+    }
+
+    private void resetGame() {
+        snake.setPositions(new Position[]{new Position(100, 50), new Position(105, 50), new Position(110, 50)}, 3);
+        snake.setSpeed(1);
+        score.setScore(0);
+        score.setIncreaseValue(5);
+        candy.generateCandy(snake);
     }
 
     private boolean snakeIsDead() {
@@ -71,10 +83,7 @@ public class GameWorld {
                 return true;
             }
         }
-        if (snake.getHead().getX() < map.getAbscisses()[0] || snake.getHead().getX() > map.getAbscisses()[35] || snake.getHead().getY() < map.getOrdonnees()[0] || snake.getHead().getY() > map.getOrdonnees()[35]) {
-            return true;
-        }
-        return false;
+        return (map.getVertices()[0] > snake.getHead().getX() || map.getVertices()[0] > snake.getHead().getY() || map.getVertices()[35] < snake.getHead().getX() || map.getVertices()[35] < snake.getHead().getY());
     }
 
     public GamePad getGamePad() {
@@ -85,11 +94,11 @@ public class GameWorld {
         return snake;
     }
 
-    public Candy getCandy() {
+    Candy getCandy() {
         return candy;
     }
 
-    public Score getScore() {
+    Score getScore() {
         return score;
     }
 }

@@ -1,27 +1,21 @@
 package com.teamglider.snake.objects;
 
 /**
+ * Map class
  * Created by Guillaume Quittet on 15/12/16.
  */
 public class Map {
 
-    private int[] abscisses;
-    private int[] ordonnees;
+    private int[] vertices;
 
     public Map(int width, int size) {
-        abscisses = new int[width / size];
-        ordonnees = new int[width / size];
-        for (int i = 0, j = 30; i < width && j < width + 30; i += 5, j += 5) {
-            abscisses[i / 5] = i;
-            ordonnees[i / 5] = j;
+        vertices = new int[width / size];
+        for (int i = 0; i < width; i += 5) {
+            vertices[i / 5] = i;
         }
     }
 
-    public int[] getAbscisses() {
-        return abscisses;
-    }
-
-    public int[] getOrdonnees() {
-        return ordonnees;
+    public int[] getVertices() {
+        return vertices;
     }
 }
