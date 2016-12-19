@@ -31,7 +31,7 @@ public class GameWorld {
 
     private void initWorldObjects() {
         updateCount = 0;
-        snake = new Snake(objectSize, 80, 1, new Position[]{new Position(85, 85), new Position(90, 85), new Position(95, 85)}, 3);
+        snake = new Snake(objectSize, 80, 1, new Position[]{new Position(85, 85), new Position(90, 85), new Position(95, 85)});
         snake.initMap(viewWidth);
         gamePad = com.teamglider.snake.Snake.gamePad;
         gamePad.attachObject(snake);
@@ -46,18 +46,10 @@ public class GameWorld {
         updateCount++;
         if (updateCount == ((int) (1f / snake.getSpeed() * 20))) {
             snake.update(delta);
-            if (candy.getPosition().equals(snake.getHead()))
+            if (candy.getPosition().equals(snake.getHead())) {
                 snake.eatCandy(candy, score);
-            float speed = 1.0f;
-            int scoreValue = 0;
-            for (int i = 4; i < snake.getLength(); i += 5) {
-                speed += 0.5f;
-                scoreValue += 10;
-                if (snake.getLength() >= i && snake.getLength() < i + 5) {
-                    snake.setSpeed(speed);
-                    score.setIncreaseValue(scoreValue);
-                }
             }
+            snake.setSpeed(snake.getSpeed() + 0.5f);
             if (snake.isDead()) {
                 resetGame();
             }

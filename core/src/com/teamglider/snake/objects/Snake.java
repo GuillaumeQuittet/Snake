@@ -15,12 +15,12 @@ public class Snake extends GameObject {
     // 2: left 3: up
     private int direction;
     private Position[] initPositions;
-    private int positionLength;
     private Position[] positions;
     private int length;
     private float speed;
     private float initSpeed;
     private boolean canChangeDirection;
+    private boolean canIncreaseSpeed;
 
     /**
      * The Snake
@@ -30,13 +30,13 @@ public class Snake extends GameObject {
      * @param speed     The speed of the snake
      * @param positions The first part of the snake
      */
-    public Snake(int size, int maxLength, float speed, Position[] positions, int positionLength) {
+    public Snake(int size, int maxLength, float speed, Position[] positions) {
         super(size);
         this.speed = speed;
         this.initSpeed = speed;
         this.positions = new Position[maxLength];
-        this.positionLength = positionLength;
         this.initPositions = positions;
+        canIncreaseSpeed = false;
         canChangeDirection = true;
         direction = 2;
         this.length = 0;
@@ -93,6 +93,8 @@ public class Snake extends GameObject {
             score.increaseScore(score.getIncreaseValue() * 5);
         else
             score.increaseScore();
+        if (length % 5 == 0)
+            score.setIncreaseValue(length * 2);
         candy.generateCandy(this);
     }
 
@@ -106,7 +108,7 @@ public class Snake extends GameObject {
     }
 
     public void reset() {
-        setPositions(initPositions, positionLength);
+        setPositions(initPositions);
         setSpeed(initSpeed);
     }
 
@@ -148,6 +150,8 @@ public class Snake extends GameObject {
         } catch (ArrayIndexOutOfBoundsException e) {
             Gdx.app.log("Game end", e.getMessage());
         }
+        if (length > 3 && length % 5 == 0)
+            canIncreaseSpeed = true;
     }
 
     /**
@@ -163,7 +167,10 @@ public class Snake extends GameObject {
      * @param speed The speed of the snake
      */
     public void setSpeed(float speed) {
-        this.speed = speed;
+        if (canIncreaseSpeed) {
+            this.speed = speed;
+            canIncreaseSpeed = false;
+        }
     }
 
     /**
@@ -172,6 +179,17 @@ public class Snake extends GameObject {
      */
     public Position[] getPositions() {
         return positions;
+    }
+
+    /**
+     * Set a new table that contains new part of the snake inside
+     * @param positions The table of the snake
+     */
+    private void setPositions(Position[] positions) {
+        emptyPositions();
+        for (Position position : positions) {
+            addPosition(position);
+        }
     }
 
     /**
@@ -190,18 +208,6 @@ public class Snake extends GameObject {
         for (int i = 0; i < length; ++i) {
             positions[i] = null;
             length = 0;
-        }
-    }
-
-    /**
-     * Set a new table that contains new part of the snake inside
-     * @param positions The table of the snake
-     * @param length The length of this table
-     */
-    private void setPositions(Position[] positions, int length) {
-        emptyPositions();
-        for (int i = 0; i < length; ++i) {
-            addPosition(positions[i]);
         }
     }
 }
