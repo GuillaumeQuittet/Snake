@@ -11,13 +11,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class AssetLoader {
 
-    public static Texture texture;
     public static TextureRegion arrowKey;
-    public static TextureRegion actionButtonA;
-    public static TextureRegion actionButtonB;
-    public static TextureRegion actionButtonMenu;
-
+    public static TextureRegion buttonA;
+    public static TextureRegion buttonB;
+    public static TextureRegion buttonMenu;
     public static BitmapFont font;
+    private static Texture texture;
 
     /**
      * Load the assets
@@ -28,12 +27,12 @@ public class AssetLoader {
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         arrowKey = new TextureRegion(texture, 1, 1, 128, 128);
         arrowKey.flip(false, true);
-        actionButtonA = new TextureRegion(texture, 131, 1, 128, 128);
-        actionButtonA.flip(false, true);
-        actionButtonB = new TextureRegion(texture, 261, 1, 128, 128);
-        actionButtonB.flip(false, true);
-        actionButtonMenu = new TextureRegion(texture, 391, 1, 128, 128);
-        actionButtonMenu.flip(false, true);
+        buttonA = new TextureRegion(texture, 131, 1, 128, 128);
+        buttonA.flip(false, true);
+        buttonB = new TextureRegion(texture, 261, 1, 128, 128);
+        buttonB.flip(false, true);
+        buttonMenu = new TextureRegion(texture, 391, 1, 128, 128);
+        buttonMenu.flip(false, true);
         font = new BitmapFont(Gdx.files.internal("Fonts/arial.fnt"));
         font.getData().setScale(0.5f, -0.5f);
     }

@@ -12,6 +12,7 @@ import com.teamglider.snake.objects.ActionKey;
 import static com.badlogic.gdx.Gdx.gl;
 
 /**
+ * MenuRenderer
  * Created by Guillaume Quittet on 15/12/16.
  */
 public class MenuRenderer {
@@ -49,9 +50,9 @@ public class MenuRenderer {
         arrowDown = menuWorld.getGamePad().getArrowDown();
         arrowLeft = menuWorld.getGamePad().getArrowLeft();
         arrowUp = menuWorld.getGamePad().getArrowUp();
-        actionButtonA = menuWorld.getGamePad().getActionButtonA();
-        actionButtonB = menuWorld.getGamePad().getActionButtonB();
-        actionButtonMenu = menuWorld.getGamePad().getActionButtonMenu();
+        actionButtonA = menuWorld.getGamePad().getButtonA();
+        actionButtonB = menuWorld.getGamePad().getButtonB();
+        actionButtonMenu = menuWorld.getGamePad().getButtonMenu();
     }
 
     private void renderGameScreen() {
@@ -104,17 +105,17 @@ public class MenuRenderer {
                 1f, 1f, 90f * arrowUp.getRotation());
         spriteBatch.end();
         spriteBatch.begin();
-        spriteBatch.draw(AssetLoader.actionButtonA,
+        spriteBatch.draw(AssetLoader.buttonA,
                 actionButtonA.getPosition().getX(), actionButtonA.getPosition().getY(),
                 actionButtonA.getSize(), actionButtonA.getSize());
         spriteBatch.end();
         spriteBatch.begin();
-        spriteBatch.draw(AssetLoader.actionButtonB,
+        spriteBatch.draw(AssetLoader.buttonB,
                 actionButtonB.getPosition().getX(), actionButtonB.getPosition().getY(),
                 actionButtonB.getSize(), actionButtonB.getSize());
         spriteBatch.end();
         spriteBatch.begin();
-        spriteBatch.draw(AssetLoader.actionButtonMenu,
+        spriteBatch.draw(AssetLoader.buttonMenu,
                 actionButtonMenu.getPosition().getX(), actionButtonMenu.getPosition().getY(),
                 actionButtonMenu.getSize(), actionButtonMenu.getSize());
         spriteBatch.end();

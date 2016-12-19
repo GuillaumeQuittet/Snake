@@ -1,5 +1,6 @@
 package com.teamglider.snake.world;
 
+import com.badlogic.gdx.graphics.Color;
 import com.teamglider.snake.helpers.Position;
 import com.teamglider.snake.objects.Candy;
 import com.teamglider.snake.objects.GamePad;
@@ -33,8 +34,9 @@ public class GameWorld {
         snake = new Snake(objectSize, 80, 1, new Position[]{new Position(85, 85), new Position(90, 85), new Position(95, 85)}, 3);
         snake.initMap(viewWidth);
         gamePad = com.teamglider.snake.Snake.gamePad;
-        gamePad.attachSnake(snake);
+        gamePad.attachObject(snake);
         candy = new Candy(objectSize, new Position(0, 0));
+        candy.setColor(new Color(1, 0, 0, 1));
         candy.initMap(viewWidth);
         candy.generateCandy(snake);
     }

@@ -1,25 +1,30 @@
 package com.teamglider.snake.helpers;
 
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector3;
 import com.teamglider.snake.objects.GamePad;
 
 /**
- * Created by Guillaume Quittet on 17/12/16.
+ * InputHandler
+ * Created by Guillaume Quittet on 11/12/16.
  */
-public class MenuInputHandler implements InputProcessor {
+public class InputHandler implements InputProcessor {
 
     private GamePad gamePad;
-    private Camera camera;
+    private OrthographicCamera camera;
+    private Vector3 touch;
 
-    public MenuInputHandler(GamePad gamePad, Camera camera) {
+    public InputHandler(GamePad gamePad, OrthographicCamera camera) {
         this.gamePad = gamePad;
         this.camera = camera;
+        touch = new Vector3();
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        return false;
+        gamePad.onKeyPress(keycode);
+        return true;
     }
 
     @Override
@@ -34,7 +39,9 @@ public class MenuInputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
+        camera.unproject(touch.set(screenX, screenY, 0));
+        gamePad.onClick(touch.x, touch.y);
+        return true;
     }
 
     @Override

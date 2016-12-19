@@ -17,11 +17,12 @@ public class GamePad {
     private ActionKey arrowDown;
     private ActionKey arrowLeft;
     private ActionKey arrowUp;
-    private ActionKey actionButtonA;
-    private ActionKey actionButtonB;
-    private ActionKey actionButtonMenu;
+    private ActionKey buttonA;
+    private ActionKey buttonB;
+    private ActionKey buttonMenu;
 
     private Snake snake;
+    private Pause pause;
 
     /**
      * A new gamepad
@@ -44,9 +45,10 @@ public class GamePad {
         arrowDown = new ActionKey(2, size, new Position(position.getX(), position.getY() + size));
         arrowLeft = new ActionKey(3, size, new Position(position.getX() - size, position.getY()));
         arrowUp = new ActionKey(0, size, new Position(position.getX(), position.getY() - size));
-        actionButtonA = new ActionKey(0, size, new Position(position.getX() + 100, position.getY() - 20));
-        actionButtonB = new ActionKey(0, size, new Position(position.getX() + 80, position.getY() + 20));
-        actionButtonMenu = new ActionKey(0, size/2.0f, new Position((rectPad.getWidth() - (size/2))/2, 7.5f));
+        buttonA = new ActionKey(0, size, new Position(position.getX() + 100, position.getY() - 20));
+        buttonB = new ActionKey(0, size, new Position(position.getX() + 80, position.getY() + 20));
+        buttonMenu = new ActionKey(0, size / 2.0f, new Position((rectPad.getWidth() - (size / 2)) / 2, 7.5f));
+        pause = new Pause(false);
     }
 
     /**
@@ -73,6 +75,10 @@ public class GamePad {
                     if (snake.getDirection() != 2)
                         snake.setDirection(0);
                 }
+            }
+        } else if (y <= buttonMenu.getPosition().getY() + buttonMenu.getSize() && y >= buttonMenu.getPosition().getY()) {
+            if (x >= buttonMenu.getPosition().getX() && x <= buttonMenu.getPosition().getX() + buttonMenu.getSize()) {
+                pause.setPause(!pause.isPause());
             }
         }
     }
@@ -155,24 +161,24 @@ public class GamePad {
      * Return the button A of the gampad
      * @return The button A of the gamepad
      */
-    public ActionKey getActionButtonA() {
-        return actionButtonA;
+    public ActionKey getButtonA() {
+        return buttonA;
     }
 
     /**
      * Return the button B of the gamepad
      * @return The button B of the gamepad
      */
-    public ActionKey getActionButtonB() {
-        return actionButtonB;
+    public ActionKey getButtonB() {
+        return buttonB;
     }
 
     /**
      * Return the button menu of the gamepad
      * @return The button of the gamepad
      */
-    public ActionKey getActionButtonMenu() {
-        return actionButtonMenu;
+    public ActionKey getButtonMenu() {
+        return buttonMenu;
     }
 
     /**
@@ -183,7 +189,15 @@ public class GamePad {
         return rectPad;
     }
 
-    public void attachSnake(Snake snake) {
-        this.snake = snake;
+    public Pause getPause() {
+        return pause;
+    }
+
+    public void setPause(Pause pause) {
+        this.pause = pause;
+    }
+
+    public void attachObject(Object object) {
+        this.snake = (Snake) object;
     }
 }

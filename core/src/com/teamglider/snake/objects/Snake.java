@@ -90,9 +90,9 @@ public class Snake extends GameObject {
                 break;
         }
         if ((candy.getPosition().getX() < candy.getSize() && (candy.getPosition().getY() < candy.getSize() || candy.getPosition().getY() >= getViewWidth() - candy.getSize())) || (candy.getPosition().getX() >= getViewWidth() - candy.getSize() && (candy.getPosition().getY() < candy.getSize() || candy.getPosition().getY() >= getViewWidth() - candy.getSize())))
-            score.increaseScore(250 + score.getIncreaseValue());
+            score.increaseScore(score.getIncreaseValue() * 10);
         else if (candy.getPosition().getX() < candy.getSize() || candy.getPosition().getX() >= getViewWidth() - candy.getSize() || candy.getPosition().getY() < candy.getSize() || candy.getPosition().getY() >= getViewWidth() - candy.getSize())
-            score.increaseScore(100 + score.getIncreaseValue());
+            score.increaseScore(score.getIncreaseValue() * 5);
         else
             score.increaseScore();
         candy.generateCandy(this);

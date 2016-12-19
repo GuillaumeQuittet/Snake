@@ -34,9 +34,9 @@ public class GameRenderer {
     private ActionKey arrowDown;
     private ActionKey arrowLeft;
     private ActionKey arrowUp;
-    private ActionKey actionButtonA;
-    private ActionKey actionButtonB;
-    private ActionKey actionButtonMenu;
+    private ActionKey buttonA;
+    private ActionKey buttonB;
+    private ActionKey buttonMenu;
     private Rectangle gamePad;
 
     private Snake snake;
@@ -57,9 +57,9 @@ public class GameRenderer {
         arrowDown = gameWorld.getGamePad().getArrowDown();
         arrowLeft = gameWorld.getGamePad().getArrowLeft();
         arrowUp = gameWorld.getGamePad().getArrowUp();
-        actionButtonA = gameWorld.getGamePad().getActionButtonA();
-        actionButtonB = gameWorld.getGamePad().getActionButtonB();
-        actionButtonMenu = gameWorld.getGamePad().getActionButtonMenu();
+        buttonA = gameWorld.getGamePad().getButtonA();
+        buttonB = gameWorld.getGamePad().getButtonB();
+        buttonMenu = gameWorld.getGamePad().getButtonMenu();
         gamePad = gameWorld.getGamePad().getRectPad();
         snake = gameWorld.getSnake();
         candy = gameWorld.getCandy();
@@ -127,19 +127,19 @@ public class GameRenderer {
                 1f, 1f, 90f * arrowUp.getRotation());
         spriteBatch.end();
         spriteBatch.begin();
-        spriteBatch.draw(AssetLoader.actionButtonA,
-                actionButtonA.getPosition().getX(), actionButtonA.getPosition().getY(),
-                actionButtonA.getSize(), actionButtonA.getSize());
+        spriteBatch.draw(AssetLoader.buttonA,
+                buttonA.getPosition().getX(), buttonA.getPosition().getY(),
+                buttonA.getSize(), buttonA.getSize());
         spriteBatch.end();
         spriteBatch.begin();
-        spriteBatch.draw(AssetLoader.actionButtonB,
-                actionButtonB.getPosition().getX(), actionButtonB.getPosition().getY(),
-                actionButtonB.getSize(), actionButtonB.getSize());
+        spriteBatch.draw(AssetLoader.buttonB,
+                buttonB.getPosition().getX(), buttonB.getPosition().getY(),
+                buttonB.getSize(), buttonB.getSize());
         spriteBatch.end();
         spriteBatch.begin();
-        spriteBatch.draw(AssetLoader.actionButtonMenu,
-                actionButtonMenu.getPosition().getX(), actionButtonMenu.getPosition().getY(),
-                actionButtonMenu.getSize(), actionButtonMenu.getSize());
+        spriteBatch.draw(AssetLoader.buttonMenu,
+                buttonMenu.getPosition().getX(), buttonMenu.getPosition().getY(),
+                buttonMenu.getSize(), buttonMenu.getSize());
         spriteBatch.end();
     }
 
@@ -165,7 +165,7 @@ public class GameRenderer {
 
     private void renderCandy() {
         shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(1, 1, 1, 1);
+        shapeRenderer.setColor(candy.getColor());
         shapeRenderer.rect(candy.getPosition().getX(), candy.getPosition().getY() + 30,
                 candy.getSize(), candy.getSize());
         shapeRenderer.end();
