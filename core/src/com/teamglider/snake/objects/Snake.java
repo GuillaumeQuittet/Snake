@@ -108,8 +108,9 @@ public class Snake extends GameObject {
     }
 
     public void reset() {
+        this.speed = initSpeed;
+        canIncreaseSpeed = false;
         setPositions(initPositions);
-        setSpeed(initSpeed);
     }
 
     /**
