@@ -50,7 +50,7 @@ public class GameWorld {
                 snake.eatCandy(candy, score);
             float speed = 1.0f;
             int scoreValue = 0;
-            for (int i = 5; i < snake.getMaxLength(); i += 5) {
+            for (int i = 4; i < snake.getLength(); i += 5) {
                 speed += 0.5f;
                 scoreValue += 10;
                 if (snake.getLength() >= i && snake.getLength() < i + 5) {

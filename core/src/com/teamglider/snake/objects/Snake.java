@@ -18,7 +18,6 @@ public class Snake extends GameObject {
     private int positionLength;
     private Position[] positions;
     private int length;
-    private int maxLength;
     private float speed;
     private float initSpeed;
     private boolean canChangeDirection;
@@ -35,7 +34,6 @@ public class Snake extends GameObject {
         super(size);
         this.speed = speed;
         this.initSpeed = speed;
-        this.maxLength = maxLength;
         this.positions = new Position[maxLength];
         this.positionLength = positionLength;
         this.initPositions = positions;
@@ -205,9 +203,5 @@ public class Snake extends GameObject {
         for (int i = 0; i < length; ++i) {
             addPosition(positions[i]);
         }
-    }
-
-    public int getMaxLength() {
-        return maxLength;
     }
 }
