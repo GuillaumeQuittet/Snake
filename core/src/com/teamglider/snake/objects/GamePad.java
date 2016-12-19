@@ -47,7 +47,7 @@ public class GamePad {
         arrowUp = new ActionKey(0, size, new Position(position.getX(), position.getY() - size));
         buttonA = new ActionKey(0, size, new Position(position.getX() + 100, position.getY() - 20));
         buttonB = new ActionKey(0, size, new Position(position.getX() + 80, position.getY() + 20));
-        buttonMenu = new ActionKey(0, size / 2.0f, new Position((rectPad.getWidth() - (size / 2)) / 2, 7.5f));
+        buttonMenu = new ActionKey(0, size / 2.0f, new Position(rectPad.getWidth() / 2 - size / 4, 7.5f));
         pause = new Pause(false);
     }
 
